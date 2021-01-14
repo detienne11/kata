@@ -1,0 +1,831 @@
+{
+	"info": {
+		"_postman_id": "35ae181a-996b-4d96-8aff-19bab9dcdaab",
+		"name": "Kata",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "deposit on a valid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{deposit.type}}\",\r\n    \"amount\" : 1000\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{valid.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{valid.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "withdraw on a valid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 204\", function () {\r",
+							"    pm.response.to.have.status(204);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{withdraw.type}}\",\r\n    \"amount\" : 40.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{valid.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{valid.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer on a valid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{transfer.type}}\",\r\n    \"amount\" : 200.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{valid.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{valid.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deposit on a close account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{deposit.type}}\",\r\n    \"amount\" : 200.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{close.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{close.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "withdraw on a close account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 403\", function () {\r",
+							"    pm.response.to.have.status(403);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(403);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{withdraw.type}}\",\r\n    \"amount\" : 200.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{close.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{close.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer on a close account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{transfer.type}}\",\r\n    \"amount\" : 200.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{close.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{close.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deposit on a invalid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{deposit.type}}\",\r\n    \"amount\" : 200.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{invalid.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{invalid.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "withdraw on a invalid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(404);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{withdraw.type}}\",\r\n    \"amount\" : 200.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{invalid.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{invalid.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "transfer on a invalid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 400\", function () {\r",
+							"    pm.response.to.have.status(400);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(400);\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"type\" : \"{{transfer.type}}\",\r\n    \"amount\" : 200.00\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{invalid.account}}/bankingtransactions",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{invalid.account}}",
+						"bankingtransactions"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "valid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('id', 'active', 'balance', 'bankingTransactions');\t\r",
+							"\tpm.expect(jsonData.balance).to.be.a(\"number\");\r",
+							"\tpm.expect(jsonData.bankingTransactions).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(parseInt(pm.variables.get(\"valid.account\")));\r",
+							"\tpm.expect(jsonData.active).to.be.true;\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{valid.account}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{valid.account}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "close account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {\r",
+							"    pm.response.to.have.status(200);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('id', 'active', 'balance', 'bankingTransactions');\t\r",
+							"\tpm.expect(jsonData.balance).to.be.a(\"number\");\r",
+							"\tpm.expect(jsonData.bankingTransactions).to.be.an(\"array\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"    pm.expect(jsonData.id).to.eql(parseInt(pm.variables.get(\"close.account\")));\r",
+							"\tpm.expect(jsonData.active).to.be.false;\r",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{close.account}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{close.account}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "invalid account",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 404\", function () {\r",
+							"    pm.response.to.have.status(404);\r",
+							"});\r",
+							"\r",
+							"const jsonData = pm.response.json();\r",
+							"pm.test(\"Valid body response schema\", function () {        \r",
+							"\tpm.expect(jsonData).to.have.all.keys('statusCode', 'timestamp', 'message', 'description');\r",
+							"    pm.expect(jsonData.statusCode).to.be.a(\"number\");    \r",
+							"\tpm.expect(jsonData.timestamp).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.message).to.be.a(\"string\");\r",
+							"\tpm.expect(jsonData.description).to.be.an(\"string\");\r",
+							"});\r",
+							"\r",
+							"pm.test(\"Valid body values\", function () {\r",
+							"\tpm.expect(jsonData.statusCode).to.eql(404);\r",
+							"});\r",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{protocol}}://{{server}}:{{port}}/{{root.api}}/accounts/{{invalid.account}}",
+					"protocol": "{{protocol}}",
+					"host": [
+						"{{server}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"{{root.api}}",
+						"accounts",
+						"{{invalid.account}}"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "localhost"
+		},
+		{
+			"key": "port",
+			"value": "8081"
+		},
+		{
+			"key": "root.api",
+			"value": "api/v1"
+		},
+		{
+			"key": "protocol",
+			"value": "http"
+		},
+		{
+			"key": "valid.account",
+			"value": "10011100099"
+		},
+		{
+			"key": "close.account",
+			"value": "20022200066"
+		},
+		{
+			"key": "invalid.account",
+			"value": "30033300088"
+		},
+		{
+			"key": "withdraw.type",
+			"value": "withdraw"
+		},
+		{
+			"key": "deposit.type",
+			"value": "deposit"
+		},
+		{
+			"key": "transfer.type",
+			"value": "transfer"
+		}
+	]
+}

@@ -19,4 +19,13 @@
 
 > To run BDD tests in commandline : 
 >>* mvn clean test
+
+### E2E tests with Postman ###
+
+> Launch Postman application
+
+> Import Collection from file :
+>> ./src/test/e2e/kata.postman_collection.json
+
+> Run whole collection or just a specific test
  
