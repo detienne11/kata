@@ -9,6 +9,16 @@
 * Git 2.28.0
 * Postman 7.36.1
 
+### Up and Run Application ###
+> Clone application in commandline :
+>>* git clone https://github.com/detienne11/kata.git
+>>* cd kata
+
+> To run application in commandline :
+>>* mvn spring-boot:run
+
+Application running on localhost:8081
+
 ### BDD tests with Cucumber ###
 
 > Features are available in 
@@ -28,4 +38,3 @@
 >> ./src/test/e2e/kata.postman_collection.json
 
 > Run whole collection or just a specific test
- 
