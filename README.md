@@ -39,6 +39,14 @@ Application running on localhost:8081
 
 > Run whole collection or just a specific test
 
+### Unit tests with JUnit ###
+
+> Implementation are available in
+>> ./src/test/java/com/oxiane/detienne/kata/tu
+
+> To run Unit tests in commandline : 
+>>* mvn clean test
+
 ### Database Schema ###
 
 #### accounts table

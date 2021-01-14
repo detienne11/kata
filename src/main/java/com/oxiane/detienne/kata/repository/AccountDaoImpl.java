@@ -15,19 +15,21 @@ import com.oxiane.detienne.kata.model.BankingTransaction;
 public class AccountDaoImpl implements AccountDao {
 
 	private static final Logger logger = LoggerFactory.getLogger(AccountDaoImpl.class);
-	
+
 	@Autowired
-    private EntityManager entityManager;
+	private EntityManager entityManager;
 
 	@Override
 	public Account findById(Long id) {
-		throw new RuntimeException("Not implemented");
+		final Account account = entityManager.find(Account.class, id);
+		return account;
 	}
 
 	@Override
 	@Transactional
 	public void save(BankingTransaction entity) {
-		throw new RuntimeException("Not implemented");
+		logger.debug("BankingTransaction {}", entity);
+		entityManager.persist(entity);
 	}
 
 }

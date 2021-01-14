@@ -37,7 +37,8 @@ public class AccountController {
 	@GetMapping(value = "/accounts/{id}")
 	public AccountDTO getBankAccount(@PathVariable("id") Long id) {
 
-		throw new RuntimeException("Not implemented");
+		AccountDTO account = accountService.findById(id);
+		return account;
 	}
 
 	/**
@@ -50,7 +51,8 @@ public class AccountController {
 	@RequestMapping(value = "/accounts/{id}/bankingtransactions", method = RequestMethod.POST)
 	public ResponseEntity<Void> addBankingTransaction(@PathVariable("id") Long id,
 			@RequestBody BankingTransactionDTO bankingTransactionDTO) {
-		throw new RuntimeException("Not implemented");
+		accountService.addBankingTransaction(id, bankingTransactionDTO);
+		return ResponseEntity.noContent().build();
 	}
 
 }
