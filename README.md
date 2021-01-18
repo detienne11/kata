@@ -48,7 +48,7 @@ Think of your personal bank account experience When in doubt, go for the simples
 
 ### API ###
 
-> After Application running, Swagger Definition is available at http://localhost:8081/swagger-ui/
+> After Application running, Swagger Definition is available at http://localhost:8081/api/v1/swagger-ui/
 
 ### Integration Tests with Cucumber ###
 

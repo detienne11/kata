@@ -14,9 +14,9 @@ create table banking_transactions (
 );
 alter table banking_transactions add constraint FK5c3tukr4s1avnw4jlm7gqgvfl foreign key (account_id) references accounts;*/
 
-insert into accounts values (10011100099,true);
-insert into accounts values (20022200066,false);
-insert into accounts values (40044400011,true);
+insert into accounts values (10011100099,1100.53,true);
+insert into accounts values (20022200066,0,false);
+insert into accounts values (40044400011,500.00,true);
 
 insert into banking_transactions values (1,1100.00,{ts '2021-01-10 12:00:00.00'},'deposit',10011100099);
 insert into banking_transactions values (2,40.53,{ts '2021-01-12 18:47:00.69'},'deposit',10011100099);

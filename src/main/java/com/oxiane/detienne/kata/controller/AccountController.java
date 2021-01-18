@@ -1,5 +1,7 @@
 package com.oxiane.detienne.kata.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.oxiane.detienne.kata.model.AccountDTO;
@@ -68,6 +71,26 @@ public class AccountController {
 
 		this.getAccountService().addBankingTransaction(id, bankingTransactionDTO);
 		return ResponseEntity.noContent().build();
+	}
+
+	/**
+	 * Get banking transactions
+	 * 
+	 * @param id
+	 * @param page
+	 * @param size
+	 * @param sort
+	 * @return
+	 */
+	@ApiOperation(value = "Get banking transactions", response = List.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Success"),
+			@ApiResponse(code = 404, message = "not found") })
+	@GetMapping(value = "/{id}/bankingtransactions", params = { "page", "size" })
+	public List<BankingTransactionDTO> getBankingTransactions(@PathVariable("id") Long id,
+			@RequestParam("page") int page, @RequestParam("size") int size) {
+
+		List<BankingTransactionDTO> bankingTransactions = this.getAccountService().findByAccount(id, page, size);
+		return bankingTransactions;
 	}
 
 }
