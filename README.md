@@ -19,7 +19,34 @@
 
 Application running on localhost:8081
 
-### BDD tests with Cucumber ###
+### Specifications - Bank account kata ###
+
+Think of your personal bank account experience When in doubt, go for the simplest solution
+
+##### Requirements
+
+* Deposit and Withdrawal
+* Account statement (date, amount, balance)
+* Statement printing
+
+##### User Stories
+
+>* US 1:
+>>In order to save money
+>>As a bank client
+>>I want to make a deposit in my account
+
+>* US 2:
+>>In order to retrieve some or all of my savings
+>>As a bank client
+>>I want to make a withdrawal from my account
+
+>* US 3:
+>>In order to check my operations
+>>As a bank client
+>>I want to see the history (operation, date, amount, balance) of my operations
+
+### Integration Tests with Cucumber ###
 
 > Features are available in 
 >> ./src/test/resources/com/oxiane/detienne/kata/features
@@ -27,8 +54,11 @@ Application running on localhost:8081
 > StepDefinitions are available in
 >> ./src/test/java/com/oxiane/detienne/kata/bdd
 
-> To run BDD tests in commandline : 
->>* mvn clean test
+> To run Integration tests in commandline (Application must not already running): 
+>>* Only @StatementFeature : mvn verify -Pfailsafe -Dcucumber.filter.tags=@StatementFeature
+>>* Only @DepositFeature : mvn verify -Pfailsafe -Dcucumber.filter.tags=@DepositFeature
+>>* Only @WithdrawalFeature : mvn verify -Pfailsafe -Dcucumber.filter.tags=@WithdrawalFeature
+>>* All Features : mvn verify -Pfailsafe
 
 ### E2E tests with Postman ###
 
@@ -39,7 +69,7 @@ Application running on localhost:8081
 
 > Run whole collection or just a specific test
 
-### Unit tests with JUnit ###
+### Unit Tests with JUnit ###
 
 > Implementation are available in
 >> ./src/test/java/com/oxiane/detienne/kata/tu
@@ -54,6 +84,7 @@ Application running on localhost:8081
 | ---------	| -----------------	| -----------------------------------------	|
 | id		| bigint not null 	| account identifier (PK)					|
 | active 	| boolean not null	| account state (false: close, true: open)	|
+| balance	| double not null 	| balance               					|
 
 #### banking_transactions table
 | Field	 		| Type 					| Description							|
@@ -68,11 +99,11 @@ Application running on localhost:8081
 ### Dataset ###
 
 #### Accounts table
-| id  			| active	|
-| -------------	| ---------	|
-| 10011100099	| true		|
-| 20022200066 	| false		|
-| 40044400011 	| true		|
+| id  			| active	| balance   |
+| -------------	| ---------	| --------- |
+| 10011100099	| true		| 1100.53   |
+| 20022200066 	| false		| 0         |
+| 40044400011 	| true		| 500.00    |
 
 #### banking_transactions table
 | id	| account_id	| type		| date						| amount	|
