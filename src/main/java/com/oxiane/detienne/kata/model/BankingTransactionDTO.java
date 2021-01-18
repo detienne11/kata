@@ -1,17 +1,19 @@
-package com.oxiane.detienne.kata.dto;
+package com.oxiane.detienne.kata.model;
 
 import java.time.LocalDateTime;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import io.swagger.annotations.ApiModelProperty;
 
 public class BankingTransactionDTO {
 
 	private Long id;
 
+	@ApiModelProperty(notes = "banking transaction type", name = "type", required = true)
 	private String type;
 
 	private LocalDateTime date;
 
+	@ApiModelProperty(notes = "amount", name = "amount", required = true)
 	private Double amount;
 
 	// Constructors
@@ -55,16 +57,6 @@ public class BankingTransactionDTO {
 	@Override
 	public String toString() {
 		return "BankingTransactionDTO [id=" + id + ", type=" + type + ", date=" + date + ", amount=" + amount + "]";
-	}
-
-	/*
-	 * dynamically calculate value
-	 */
-	@JsonIgnore
-	public Double getValue() {
-		final Double amount = (this.getAmount() != null) ? this.getAmount() : 0;
-		final Double value = ("withdraw".equals(this.getType())) ? -amount : amount;
-		return value;
 	}
 
 }

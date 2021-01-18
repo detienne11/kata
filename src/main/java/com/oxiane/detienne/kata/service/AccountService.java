@@ -1,7 +1,9 @@
 package com.oxiane.detienne.kata.service;
 
-import com.oxiane.detienne.kata.dto.AccountDTO;
-import com.oxiane.detienne.kata.dto.BankingTransactionDTO;
+import java.util.List;
+
+import com.oxiane.detienne.kata.model.AccountDTO;
+import com.oxiane.detienne.kata.model.BankingTransactionDTO;
 
 public interface AccountService {
 
@@ -12,7 +14,17 @@ public interface AccountService {
 	 * @return
 	 */
 	public AccountDTO findById(Long id);
-	
+
+	/**
+	 * Find bank transactions by account
+	 * 
+	 * @param id
+	 * @param page
+	 * @param size
+	 * @return
+	 */
+	public List<BankingTransactionDTO> findByAccount(Long id, int page, int size);
+
 	/**
 	 * Add a new banking transaction (deposit, withdraw) on a bank account
 	 * 
@@ -20,5 +32,5 @@ public interface AccountService {
 	 * @param bankingTransactionDTO
 	 */
 	public void addBankingTransaction(Long id, BankingTransactionDTO bankingTransactionDTO);
-	
+
 }

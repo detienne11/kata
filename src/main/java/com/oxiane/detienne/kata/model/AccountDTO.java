@@ -1,15 +1,21 @@
-package com.oxiane.detienne.kata.dto;
+package com.oxiane.detienne.kata.model;
 
 import java.util.List;
 
 import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
+import io.swagger.annotations.ApiModelProperty;
+
 @JsonPropertyOrder({ "id", "active", "balance" })
 public class AccountDTO {
 
+	@ApiModelProperty(notes = "bank account identitier", name = "id", required = true, value = "10011100099")
+//	@Pattern(regexp="\\d{11}")
 	private Long id;
 
-	private boolean active;
+	private Boolean active;
+
+	private Double balance;
 
 	private List<BankingTransactionDTO> bankingTransactions;
 
@@ -28,12 +34,20 @@ public class AccountDTO {
 		this.id = id;
 	}
 
-	public boolean isActive() {
+	public Boolean getActive() {
 		return active;
 	}
 
-	public void setActive(boolean active) {
+	public void setActive(Boolean active) {
 		this.active = active;
+	}
+
+	public Double getBalance() {
+		return balance;
+	}
+
+	public void setBalance(Double balance) {
+		this.balance = balance;
 	}
 
 	public List<BankingTransactionDTO> getBankingTransactions() {
@@ -46,19 +60,8 @@ public class AccountDTO {
 
 	@Override
 	public String toString() {
-		return "Account [id=" + id + ", active=" + active + ", balance=" + getBalance() + ", bankingTransactions="
+		return "AccountDTO [id=" + id + ", active=" + active + ", balance=" + balance + ", bankingTransactions="
 				+ bankingTransactions + "]";
-	}
-
-	/*
-	 * dynamically calculate balance from banking transactions list
-	 */
-	public Double getBalance() {
-
-		final List<BankingTransactionDTO> bankingTransactions = this.getBankingTransactions();
-
-		final Double balance = bankingTransactions.stream().map(it -> it.getValue()).reduce(.0, Double::sum);
-		return balance;
 	}
 
 }

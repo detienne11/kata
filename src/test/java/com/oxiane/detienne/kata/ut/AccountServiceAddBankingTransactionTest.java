@@ -1,35 +1,33 @@
-package com.oxiane.detienne.kata.tu;
+package com.oxiane.detienne.kata.ut;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.MockitoJUnitRunner;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import com.oxiane.detienne.kata.dto.BankingTransactionDTO;
+import com.oxiane.detienne.kata.entity.Account;
+import com.oxiane.detienne.kata.entity.BankingTransaction;
 import com.oxiane.detienne.kata.exception.AccountClosedException;
 import com.oxiane.detienne.kata.exception.AccountNotFoundException;
 import com.oxiane.detienne.kata.exception.IllegalBankingTransactionTypeException;
-import com.oxiane.detienne.kata.model.Account;
-import com.oxiane.detienne.kata.model.BankingTransaction;
-import com.oxiane.detienne.kata.repository.AccountDao;
+import com.oxiane.detienne.kata.model.BankingTransactionDTO;
+import com.oxiane.detienne.kata.repository.AccountRepository;
 import com.oxiane.detienne.kata.service.AccountServiceImpl;
 
 @RunWith(MockitoJUnitRunner.class)
 public class AccountServiceAddBankingTransactionTest {
 
-	private static final Logger logger = LoggerFactory.getLogger(AccountServiceAddBankingTransactionTest.class);
-
 	private static final Long ACCOUNT_ID = 1001110099l;
 
 	@Mock
-	private AccountDao accountDaoMock;
+	private AccountRepository accountDaoMock;
 
 	@InjectMocks
 	private AccountServiceImpl accountService;
@@ -45,7 +43,7 @@ public class AccountServiceAddBankingTransactionTest {
 		bankingTransactionDTO = new BankingTransactionDTO();
 		bankingTransactionDTO.setType("deposit");
 		bankingTransactionDTO.setAmount(100.77d);
-		
+
 		// mock initialization
 		acccountMock = new Account();
 		acccountMock.setId(ACCOUNT_ID);
@@ -77,9 +75,10 @@ public class AccountServiceAddBankingTransactionTest {
 
 	}
 
+	@DisplayName("Add a banking transaction with illegal type")
 	@Test(expected = IllegalBankingTransactionTypeException.class)
-	public void addBankingTransaction_SE1() {
-		logger.debug("Illegal Banking Transaction Type");
+	public void testAddBankingTransaction_SE1() {
+
 		// override default values
 		bankingTransactionDTO.setType("payment");
 
@@ -87,23 +86,25 @@ public class AccountServiceAddBankingTransactionTest {
 		accountService.addBankingTransaction(ACCOUNT_ID, bankingTransactionDTO);
 	}
 
+	@DisplayName("Add a banking transaction on an invalid bank account")
 	@Test(expected = AccountNotFoundException.class)
-	public void addBankingTransaction_SE2() {
-		logger.debug("Account not found");
+	public void testAddBankingTransaction_SE2() {
+
 		// mock dependency
-		Mockito.doReturn(null).when(accountDaoMock).findById(Mockito.anyLong());
+		Mockito.doReturn(Optional.empty()).when(accountDaoMock).findById(Mockito.anyLong());
 
 		// execute service
 		accountService.addBankingTransaction(ACCOUNT_ID, bankingTransactionDTO);
 	}
 
+	@DisplayName("Add a banking transaction on a closed bank account")
 	@Test(expected = AccountClosedException.class)
-	public void addBankingTransaction_SE3() {
-		logger.debug("Account closed");
+	public void testAddBankingTransaction_SE3() {
+
 		// override default values
 		acccountMock.setActive(false);
 		// mock dependency
-		Mockito.doReturn(acccountMock).when(accountDaoMock).findById(Mockito.anyLong());
+		Mockito.doReturn(Optional.of(acccountMock)).when(accountDaoMock).findById(Mockito.anyLong());
 
 		// execute service
 		accountService.addBankingTransaction(ACCOUNT_ID, bankingTransactionDTO);
