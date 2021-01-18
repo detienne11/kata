@@ -46,6 +46,10 @@ Think of your personal bank account experience When in doubt, go for the simples
 >>As a bank client
 >>I want to see the history (operation, date, amount, balance) of my operations
 
+### API ###
+
+> After Application running, Swagger Definition is available at http://localhost:8081/swagger-ui/
+
 ### Integration Tests with Cucumber ###
 
 > Features are available in 
