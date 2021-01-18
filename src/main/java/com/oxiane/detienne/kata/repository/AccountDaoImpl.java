@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.oxiane.detienne.kata.model.Account;
-import com.oxiane.detienne.kata.model.BankingTransaction;
+import com.oxiane.detienne.kata.entity.Account;
+import com.oxiane.detienne.kata.entity.BankingTransaction;
 
 @Repository
 public class AccountDaoImpl implements AccountDao {

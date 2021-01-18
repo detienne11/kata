@@ -12,12 +12,12 @@ import org.mockito.junit.MockitoJUnitRunner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.oxiane.detienne.kata.dto.BankingTransactionDTO;
+import com.oxiane.detienne.kata.entity.Account;
+import com.oxiane.detienne.kata.entity.BankingTransaction;
 import com.oxiane.detienne.kata.exception.AccountClosedException;
 import com.oxiane.detienne.kata.exception.AccountNotFoundException;
 import com.oxiane.detienne.kata.exception.IllegalBankingTransactionTypeException;
-import com.oxiane.detienne.kata.model.Account;
-import com.oxiane.detienne.kata.model.BankingTransaction;
+import com.oxiane.detienne.kata.model.BankingTransactionDTO;
 import com.oxiane.detienne.kata.repository.AccountDao;
 import com.oxiane.detienne.kata.service.AccountServiceImpl;
 

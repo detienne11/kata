@@ -1,7 +1,7 @@
 package com.oxiane.detienne.kata.service;
 
-import com.oxiane.detienne.kata.dto.AccountDTO;
-import com.oxiane.detienne.kata.dto.BankingTransactionDTO;
+import com.oxiane.detienne.kata.model.AccountDTO;
+import com.oxiane.detienne.kata.model.BankingTransactionDTO;
 
 public interface AccountService {
 

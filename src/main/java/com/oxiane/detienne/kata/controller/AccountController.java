@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.oxiane.detienne.kata.dto.AccountDTO;
-import com.oxiane.detienne.kata.dto.BankingTransactionDTO;
+import com.oxiane.detienne.kata.model.AccountDTO;
+import com.oxiane.detienne.kata.model.BankingTransactionDTO;
 import com.oxiane.detienne.kata.service.AccountService;
 
 import io.swagger.annotations.Api;

@@ -1,4 +1,4 @@
-package com.oxiane.detienne.kata.dto;
+package com.oxiane.detienne.kata.model;
 
 import java.util.List;
 

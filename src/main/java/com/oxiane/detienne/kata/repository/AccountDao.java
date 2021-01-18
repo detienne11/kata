@@ -1,7 +1,7 @@
 package com.oxiane.detienne.kata.repository;
 
-import com.oxiane.detienne.kata.model.Account;
-import com.oxiane.detienne.kata.model.BankingTransaction;
+import com.oxiane.detienne.kata.entity.Account;
+import com.oxiane.detienne.kata.entity.BankingTransaction;
 
 public interface AccountDao {
 

@@ -1,4 +1,4 @@
-package com.oxiane.detienne.kata.model;
+package com.oxiane.detienne.kata.entity;
 
 import java.time.LocalDateTime;
 import java.util.Random;
