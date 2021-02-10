@@ -1,6 +1,6 @@
-### Kata application ###
+### Kata ###
 
-@author : David ETIENNE (detienne@oxiane.com)
+@author : David ETIENNE (da.etienne@free.fr)
 
 ### Requirements ###
 
